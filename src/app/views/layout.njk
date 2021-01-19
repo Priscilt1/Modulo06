@@ -1,32 +1,22 @@
 <html>
     <head>
         {% block head%}
-             <title> Gym Manager</title>
+             <title> LaunchStore</title>
         {% endblock %}
 
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="/styles.css">
 
     </head>
 
-
     <body>
-        <div class="fundo">
-        <header>
-            <div class="links">
-                <a href="/instructors">Instrutores</a>
-                <a href="/members">Membros</a>
-                {% for link in links %}
-                    <a href="{{ link.url }}" target="_blank">{{ link.name }}</a>
-                {% endfor %}
+      
+        {%include "parts/header.njk"%} 
 
-            </div>
-            
-        </header>
-
-        <!-- parte dinamica, puxa o about -->
-        {% block content %}
-        {% endblock%}
-
-        <script src="/scripts.js"></script>
+            {% block content %}
+            {% endblock%}
+       
+        {%include "parts/footer.njk"%} 
+    
     </body>
 </html>

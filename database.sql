@@ -1,29 +1,28 @@
 CREATE TABLE "products" (
-  "id" int PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY,
   "category_id" int UNIQUE,
   "user_id" int UNIQUE,
-  "name" text,
-  "description" text,
+  "name" text NOT NULL,
+  "description" text NOT NULL,
   "old_price" int,
-  "price" int,
-  "quantity" int,
-  "status" int,
+  "price" int NOT NULL,
+  "quantity" int DEFAULT 1,
+  "status" int DEFAULT 2,
   "created_at" timestamp DEFAULT (now()),
   "updated_at" timestamp DEFAULT (now())
 );
 
 CREATE TABLE "categories" (
-  "id" int PRIMARY KEY,
-  "name" text
+  "id" SERIAL PRIMARY KEY,
+  "name" text NOT NULL
 );
 
 CREATE TABLE "files" (
-  "id" int PRIMARY KEY,
+  "id" SERIAL PRIMARY KEY,
   "name" text,
-  "path" text,
+  "path" text NOT NULL,
   "product_id" int UNIQUE
 );
-
 
 ALTER TABLE "products" ADD FOREIGN KEY ("category_id") REFERENCES "categories" ("id");
 

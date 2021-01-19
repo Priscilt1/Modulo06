@@ -8,7 +8,10 @@ routes.get ('/', function (req, res) {
 })
 
 routes.get ('/products/create', ProductController.create)
+routes.post('/products', ProductController.post)
 
+
+// ALIAS - ATALHO   
 routes.get ('/ads/create', function (req, res) {
     return res.rendirect("/products/create")
 })

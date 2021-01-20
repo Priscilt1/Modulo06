@@ -2,7 +2,7 @@
 
 :root {
     --primary-color: #fd951f;
-    --secondary-color: #1fd4fd;
+    --secondary-color: #0080ff;
 }
 
 * {
@@ -30,6 +30,8 @@ body {
     margin: 0 auto;
 }
 
+
+/* BUTTON */
 .button {
     background-color: var(--primary-color);
     color: white;
@@ -53,9 +55,30 @@ body {
     background-color: #eb8510;
 }
 
+.button.edit {
+    background-color: var(--secondary-color);
+    cursor: pointer;
+    transition:  all 0.2s;
+}
+
+.button.edit:hover {
+    background-color: #166ec6;
+}
+
+
+.button.delete {
+    background-color:rgb(150, 146, 146);
+    cursor: pointer;
+    transition:  all 0.2s;
+}
+
+.button.delete:hover {
+    background-color: rgb(135, 130, 130);
+}
+
+
 
 /* HEADER */
-
 header, footer {
     background-color: black;
     color: white;
@@ -123,6 +146,7 @@ nav.primary ul li a i {
     margin-right: 8px;
 }
 
+
 /* PRODUCT FORM */
 section.form {
     background-color: white;
@@ -143,6 +167,10 @@ section.form .header h3 {
     font-weight: bold;
     color: var(--primary-color);
     margin-bottom: 16px;
+}
+
+form .fields {
+    margin-bottom: 64px;
 }
 
 form .item {
@@ -190,6 +218,15 @@ form .item textarea {
     min-height: 150px;
 }
 
-form .fields {
-    margin-bottom: 64px;
+form .item span {
+    padding: 8px 16px;
+    background-color:var(--primary-color);
+    border-radius: 16px;
+    color: white;
+    margin-right: 4px;
+    margin-top: 8px;
+    display: inline-block;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 12px;
 }

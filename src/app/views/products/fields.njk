@@ -29,7 +29,27 @@
     </div>
 </div>
 
-{# CAMPO DE FOTO #}
+{# CAMPO DE FOTO - UPLOAD DE IMAGEM #}
+<div class="item">
+    <div>Fotos</div>
+    <div>
+       <div id="photos-upload">
+                <input 
+                id="photos-input"
+                type="file" 
+                name="photos" 
+                multiple
+                {# accept para pegar apenas o arquivo que for de imagem#}
+                accept="image/*"
+            >
+
+            <p>Selecione até 6 Fotos</p>
+       </div>
+       <div id="photo-preview">
+
+       </div>
+    </div>
+</div>
 
 <div class="item">
     <div>Preço</div>

@@ -32,5 +32,28 @@ const PhotosUpload = {
             event.preventDefault()
             return
         }
+
+        // fazendo com que a fileList se transforme em um array 
+        Array.from(fileList).forEach(file => {
+            const reader = new FileReader()
+
+            // onload é um atributo que usamos quando queremos disparar um evento quando qualquer elemento tenha sido carregado. 
+            reader.onload = () => {
+                const image = new Image() //como se estivesse criando uma tag no HTML <img>
+                image.src = String(reader.result)
+
+                const div = document.createElement('div')
+                div.classList.add ('photo')
+
+                div.onclick = () => alert('remover a foto')
+
+                div.appendChild(image)
+
+                document.querySelector('#photos-preview').appendChild(div)
+            }
+
+            reader.readAsDataURL(file)
+            
+        })
     }
 }

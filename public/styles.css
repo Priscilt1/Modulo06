@@ -278,3 +278,28 @@ form .item #photos-preview img {
     /* para nao esticar a imagem ocupando todo espaço usar o object-fit: cover; */
     object-fit: cover;
 }
+
+#photos-preview .photo {
+    position: relative;
+}
+
+#photos-preview .photo i {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: red;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 500%;
+    opacity: 0;
+    transition: opacity 200ms;
+}
+
+#photos-preview .photo:hover i {
+    opacity: 1;
+} 

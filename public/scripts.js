@@ -17,3 +17,20 @@ const Mask = {
         }).format(value/100)
     }
 }
+
+// logica para pegar no maximo 6 fotos
+const PhotosUpload = {
+    uploadLimit: 6,
+    handleFileInput(event) {
+        const { files: fileList } = event.target
+        const { uploadLimit } = PhotosUpload
+
+        // lenght quantidade/tamanho
+        if (fileList.length > uploadLimit) {
+            alert(`Envie no máximo ${uploadLimit} fotos`)
+            // bloquando o evento
+            event.preventDefault()
+            return
+        }
+    }
+}

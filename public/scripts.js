@@ -20,18 +20,12 @@ const Mask = {
 
 // logica para pegar no maximo 6 fotos
 const PhotosUpload = {
+    preview: document.querySelector('#photos-preview'),
     uploadLimit: 6,
     handleFileInput(event) {
         const { files: fileList } = event.target
-        const { uploadLimit } = PhotosUpload
 
-        // lenght quantidade/tamanho
-        if (fileList.length > uploadLimit) {
-            alert(`Envie no máximo ${uploadLimit} fotos`)
-            // bloquando o evento
-            event.preventDefault()
-            return
-        }
+        if (PhotoUpload.hasLimit(event)) return
 
         // fazendo com que a fileList se transforme em um array 
         Array.from(fileList).forEach(file => {
@@ -39,21 +33,40 @@ const PhotosUpload = {
 
             // onload é um atributo que usamos quando queremos disparar um evento quando qualquer elemento tenha sido carregado. 
             reader.onload = () => {
-                const image = new Image() //como se estivesse criando uma tag no HTML <img>
+                const image = new Image() //como se estivesse criando uma tag no HTML <img>  (formato blob = imagem em formato de texto)
                 image.src = String(reader.result)
 
-                const div = document.createElement('div')
-                div.classList.add ('photo')
+                const div = PhotosUpload.getContainer(image)
 
-                div.onclick = () => alert('remover a foto')
-
-                div.appendChild(image)
-
-                document.querySelector('#photos-preview').appendChild(div)
+                PhotosUpload.preview.appendChild(div)
             }
 
             reader.readAsDataURL(file)
             
         })
+    },
+    // regras de limitações
+    hasLimit (event) {
+        const { uploadLimit } = PhotosUpload
+
+        // lenght quantidade/tamanho
+        if (fileList.length > uploadLimit) {
+            alert(`Envie no máximo ${uploadLimit} fotos`)
+            // bloquando o evento
+            event.preventDefault()
+            return true
+        }
+
+        return false
+    },
+    getContainer (image) {
+        const div = document.createElement('div')
+        div.classList.add ('photo')
+
+        div.onclick = () => alert('remover a foto')
+
+        div.appendChild(image)
+
+        return div
     }
 }

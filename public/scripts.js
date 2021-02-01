@@ -22,6 +22,7 @@ const Mask = {
 const PhotosUpload = {
     preview: document.querySelector('#photos-preview'),
     uploadLimit: 6,
+    files: [],
     handleFileInput(event) {
         const { files: fileList } = event.target
 
@@ -29,6 +30,10 @@ const PhotosUpload = {
 
         // fazendo com que a fileList se transforme em um array 
         Array.from(fileList).forEach(file => {
+           
+            // criando array
+            PhotosUpload.files.push(file)
+            
             const reader = new FileReader()
 
             // onload é um atributo que usamos quando queremos disparar um evento quando qualquer elemento tenha sido carregado. 
@@ -44,6 +49,8 @@ const PhotosUpload = {
             reader.readAsDataURL(file)
             
         })
+
+        PhotosUpload.getAllFiles()
     },
     // regras de limitações
     hasLimit (event) {
@@ -59,6 +66,15 @@ const PhotosUpload = {
         }
 
         return false
+    },
+    // pegando os arquivos
+    getAllFiles() {
+        const dataTransfer = new ClipboardEvent('').clipboardData || new DataTransfer()
+
+        // adicionando dataTransfer
+        PhotosUpload.files.forEach(file => dataTransfer.items.add(file))
+    
+        return dataTransfer.files
     },
     getContainer (image) {
         const div = document.createElement('div')

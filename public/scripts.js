@@ -20,11 +20,13 @@ const Mask = {
 
 // logica para pegar no maximo 6 fotos
 const PhotosUpload = {
+    input: "",
     preview: document.querySelector('#photos-preview'),
     uploadLimit: 6,
     files: [],
     handleFileInput(event) {
         const { files: fileList } = event.target
+        PhotosUpload.input = event.target
 
         if (PhotosUpload.hasLimit(event)) return
 
@@ -50,12 +52,11 @@ const PhotosUpload = {
             
         })
 
-        PhotosUpload.getAllFiles()
+        PhotosUpload.input.files = PhotosUpload.getAllFiles()
     },
     // regras de limitações
     hasLimit (event) {
-        const { uploadLimit } = PhotosUpload
-        const { files: fileList} = event.target
+        const { uploadLimit, input: fileList } = PhotosUpload
 
         // lenght quantidade/tamanho
         if (fileList.length > uploadLimit) {
@@ -96,10 +97,15 @@ const PhotosUpload = {
     },
     removePhoto(event){
         // parentNode é quem esta a cima, nesse caso, a div com a class photo
-        const photoDiv = event.target.parentNode
+        const photoDiv = event.target.parentNode // event.target <i> e o parentNode <div class="photo">
         // o children é a lista
         const photosArray = Array.from(PhotosUpload.preview.children)
         const index = photosArray.indexOf(photoDiv)
+
+        // remover um item do Array
+        PhotosUpload.files.splice(index, 1)
+        // atualizando dados
+        PhotosUpload.input.files = PhotosUpload.getAllFiles()
 
         photoDiv.remove()
     }

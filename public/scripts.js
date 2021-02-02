@@ -56,12 +56,30 @@ const PhotosUpload = {
     },
     // regras de limitações
     hasLimit (event) {
-        const { uploadLimit, input: fileList } = PhotosUpload
+        const { uploadLimit, input, preview } = PhotosUpload
+        const { files: fileList } = input
 
         // lenght quantidade/tamanho
         if (fileList.length > uploadLimit) {
             alert(`Envie no máximo ${uploadLimit} fotos`)
             // bloquando o evento
+            event.preventDefault()
+            return true
+        }
+
+
+        const photosDiv = []
+        // para cada childNode, rode como novo filho/item
+        // preview é o container todo e o childNode é cada foto
+        preview.childNodes.forEach(item => {
+            // para add só fotos
+            if (item.classList && item.classList.value == "photo")
+                photosDiv.push(item)
+        })
+
+        const totalPhotos = fileList.length + photosDiv.length
+        if (totalPhotos > uploadLimit) {
+            alert (`Você atingiu o limete máximo de ${uploadLimit} fotos!`)
             event.preventDefault()
             return true
         }

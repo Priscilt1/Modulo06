@@ -39,13 +39,10 @@ module.exports = {
         // toda vez que usar o await, precisa colocar o nome async na frente da função
         const productId = results.rows[0].id
 
-        req.file.forEach(file => {
-            await File.create ({
-                ...file,
-                product_id: productId
-            })
-        })
-
+        // criando um array de promessas com o map retornando um array
+        const filesPromises = req.files.map(file => File.create ({...file,product_id: productId}))
+        // executando o array
+        await Promise.all(filesPromises)
 
         return res.redirect(`/products/${productId}`)
 

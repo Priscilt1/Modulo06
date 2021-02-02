@@ -1,6 +1,7 @@
 const { formatPrice } = require('../../lib/utils')
 const Category = require('../models/Category')
 const Product = require('../models/Product')
+const File = require('../models/File')
 
 
 module.exports = {
@@ -27,11 +28,24 @@ module.exports = {
             }
         }
 
+        // configuração para armanezamento da imagem 
+        if(req.files.length == 0)
+            return res.send('Por favor, selecione no minino uma imagem!')
+
+
         // dados para salvar - req.body
         let results = await Product.create(req.body)
         // ASYNC-AWAIT - permite trabalhar com promises sem a cadeia de thein
         // toda vez que usar o await, precisa colocar o nome async na frente da função
         const productId = results.rows[0].id
+
+        req.file.forEach(file => {
+            await File.create ({
+                ...file,
+                product_id: productId
+            })
+        })
+
 
         return res.redirect(`/products/${productId}`)
 

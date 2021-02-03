@@ -58,10 +58,22 @@ module.exports = {
         product.old_price = formatPrice(product.old_price)
         product.price = formatPrice(product.price)
 
+        // Categorias
         results = await Category.all()
         const categories = results.rows
 
-        return res.render('products/edit.njk', {product, categories})
+        // criando no modulo de produtos os arquivos que serao puxados - popular imagens no front (pagina edicao)
+        results = await Product.files(product.id)
+        let files = results.rows
+        files = files.map(file => ({
+            ...file,
+            // endereco da imagem
+            src:`${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
+        }))
+
+
+
+        return res.render('products/edit.njk', {product, categories, files})
     },
     async put (req, res) {
         const keys = Object.keys(req.body)

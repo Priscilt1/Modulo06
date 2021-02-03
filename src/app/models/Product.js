@@ -66,5 +66,11 @@ module.exports = {
     },
     delete(id) {
         return db.query(`DELETE FROM products WHERE id = $1`, [id])
+    },
+    // logica para mostrar os arquivos do produto no front (pagina de ediçã0)
+    files(id) {
+        return db.query(`
+            SELECT * FROM files WHERE product_id = $1
+        `, [id])
     }
 }

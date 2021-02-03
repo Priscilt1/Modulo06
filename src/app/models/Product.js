@@ -30,7 +30,7 @@ module.exports = {
             data.quantity,
             data.status || 1
         ]
-
+   
         return db.query(query, values)
     },
     find (id) {

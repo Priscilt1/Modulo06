@@ -15,9 +15,9 @@ const storage = multer.diskStorage({
 
 // vendo se o arquivo realmente é uma imagem - png, jgep...
 const fileFilter = (req, file, cb) => {
-    const isAccepted = ['image./png', 'image/jpg', 'image/jpeg']
-    // para cada arquivo, ver se encontrou a extensão (png, jepg...)
+    const isAccepted = ['image/png', 'image/jpg', 'image/jpeg']
     .find(acceptedFormat => acceptedFormat == file.mimetype)
+    // para cada arquivo, ver se encontrou a extensão (png, jepg...)
 
     // (se for da extensao esta ok)
     if(isAccepted) {
@@ -29,5 +29,5 @@ const fileFilter = (req, file, cb) => {
 
 module.exports = multer({
     storage,
-    fileFilter
+    fileFilter    
 })

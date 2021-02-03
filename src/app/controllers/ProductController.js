@@ -29,6 +29,7 @@ module.exports = {
         }
 
         // configuração para armanezamento da imagem 
+
         if(req.files.length == 0)
             return res.send('Por favor, selecione no minino uma imagem!')
 
@@ -40,11 +41,11 @@ module.exports = {
         const productId = results.rows[0].id
 
         // criando um array de promessas com o map retornando um array
-        const filesPromises = req.files.map(file => File.create ({...file,product_id: productId}))
+        const filesPromises = req.files.map(file => File.create({...file, product_id: productId}))
         // executando o array
         await Promise.all(filesPromises)
 
-        return res.redirect(`/products/${productId}`)
+        return res.redirect(`/products/${productId}/edit`)
 
     },
     async edit (req, res) {

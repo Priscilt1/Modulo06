@@ -22,15 +22,19 @@ module.exports = {
         return db.query(query, values)
     },
     async delete(id) {        
+        try {
+            const result = await db.query(`SELECT * FROM files WHERE id = $1`, [id])
+            const file = result.rows[0]
+    
+            // fs apaga o arquivo na pasta images, para isso precisa do path por isso foi feito a consulta
+            fs.unlinkSync(file.path)
 
-        const result = await db.query(`SELECT * FROM files WHERE id = $1`, [id])
-        const file = result.rows[0]
-
-        // fs apaga o arquivo na pasta images, para isso precisa do path por isso foi feito a consulta
-        fs.unlinkSync(file.path)
-
-        return db.query(`
-          DELETE FROM files WHERE id = $1
-        `, [id])
+            return db.query(`
+            DELETE FROM files WHERE id = $1
+          `, [id])
+        }catch(err) {
+            console.error(err)
+        }
+        
     }
 }

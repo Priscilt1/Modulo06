@@ -1,5 +1,6 @@
 // Comunicação com o banco de dados
 const db = require('../../config/db')
+const fs = require('fs')
 
 module.exports = {
     create ({filename, path, product_id}) {
@@ -15,9 +16,21 @@ module.exports = {
         const values = [
             filename,
             path,
-            product_id,
+            product_id
         ]
 
         return db.query(query, values)
+    },
+    async delete(id) {        
+
+        const result = await db.query(`SELECT * FROM files WHERE id = $1`, [id])
+        const file = result.rows[0]
+
+        // fs apaga o arquivo na pasta images, para isso precisa do path por isso foi feito a consulta
+        fs.unlinkSync(file.path)
+
+        return db.query(`
+          DELETE FROM files WHERE id = $1
+        `, [id])
     }
 }

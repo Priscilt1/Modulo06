@@ -6,4 +6,4 @@ formDelete.addEventListener("submit", function(event){
     }
 })
 
-module.exports = mensagedelet.js
+//module.exports = mensagedelet

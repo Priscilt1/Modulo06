@@ -11,6 +11,7 @@ routes.get ('/', function (req, res) {
 })
 
 routes.get ('/products/create', ProductController.create)
+routes.get('/products/:id', ProductController.show)
 routes.get ('/products/:id/edit', ProductController.edit)
 
 // multer.array("photos", 6) pega a lista de fotos e limita em 6

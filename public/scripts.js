@@ -140,3 +140,22 @@ const PhotosUpload = {
         
     }
 }
+
+// galeria de imagens na pagina show 
+const ImageGallery = {
+    highlight: document.querySelector('.gallery .highlight > img'), // pegando a imagem em destaque, que no caso, é a primeira
+    previews: document.querySelectorAll('.gallery-preview img'),
+    setImage(event) {
+        const { target } = event
+
+        // removendo a classe active de todas as imagens 
+        ImageGallery.previews.forEach(preview => preview.classList.remove('active'))
+
+        // colocando a classe ativa 
+        target.classList.add("active")
+
+        // trocando a imagem em destaque
+        ImageGallery.highlight.src = target.src
+
+    }
+}

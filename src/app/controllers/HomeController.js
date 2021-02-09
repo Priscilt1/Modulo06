@@ -1,6 +1,5 @@
 const { formatPrice } = require('../../lib/utils')
 const Product = require('../models/Product')
-const File = require('../models/File')
 
 
 module.exports = {
@@ -12,16 +11,16 @@ module.exports = {
 
         // pegando a imagem
         async function getImage(productId) {
-            let results = await Product.files(product.id) 
+            let results = await Product.files(productId) 
             // retornando os caminhos das imagens
             const files = results.rows.map( file => `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`)
 
             return files[0]
         }
 
-        // cadeia de promessas (retorna array)
-        const productsPromise = products.map(product => {
-            product.img = await getImage(products)
+        // cadeia de promessas (retorna array). Lembrar que isso é uma functions
+        const productsPromise = products.map(async product => {
+            product.img = await getImage(product.id)
             product.oldPrice = formatPrice(product.old_price)
             product.price = formatPrice(product.price)
             return product

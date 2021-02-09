@@ -19,13 +19,13 @@ module.exports = {
             return files[0]
         }
 
-        // cadeia de promessas
+        // cadeia de promessas (retorna array)
         const productsPromise = products.map(product => {
             product.img = await getImage(products)
             product.oldPrice = formatPrice(product.old_price)
             product.price = formatPrice(product.price)
             return product
-        })
+        }).filter((product, index) => index > 2 ? false : true) // se chama ternario. (maneira de fazer condicionais)
 
         const lastAdded = await Promise.all(productsPromise)
         return res.render('home/index', { products: lastAdded})

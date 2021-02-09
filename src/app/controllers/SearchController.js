@@ -5,6 +5,7 @@ const Product = require('../models/Product')
 module.exports = {
     async index(req, res) {
 
+        // pegando os produtos
         try {
             let results = await Product.all()
             const products = results.rows
@@ -29,8 +30,9 @@ module.exports = {
             }).filter((product, index) => index > 2 ? false : true) // se chama ternario. (maneira de fazer condicionais)
 
             const lastAdded = await Promise.all(productsPromise)
-            return res.render('home/index', { products: lastAdded})
+            return res.render('search/index', { products: lastAdded})
         }
+        
         catch(err) {
             console.error(err)
         }
